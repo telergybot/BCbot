@@ -114,7 +114,7 @@ local rows ={kmakerow(rw1_texts),kmakerow(rw2_texts)}
 api.sendMessage(msg.chat.id, 'Select *Hash Algorithm:*', true, true,msg.message_id, true,kmake(rows))
 db:hset('bot:waiting',msg.from.id,'decode')
 elseif msg.text == 'Help' then
-local help = [[_BarCodeCopy Robot_ *(Inline)*
+local help = [[_BarCodeCreator bot_ *(Inline)*
  
 *Inline Mode*
      `enter this robot username (@BarCodeCreatorBot) in the Input Text Box and press Space button and wait for show Inline Keyboard, if you have Username, in Inline Keyboard show a button for make QR Code for you'r username. You can enter text after this robot username for make QR Core of input text.`
