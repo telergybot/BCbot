@@ -53,7 +53,7 @@ local function action(msg)
 if msg.text == '/start' then
 api.sendMessage(msg.chat.id, 'Robot is *Started*', true, true,msg.message_id, true,make_menu())
 db:hset('bot:waiting',msg.from.id,'main')
-elseif msg.text == '🔲🔳\n🔳🔲' then
+elseif msg.text == '🔙' then
 api.sendMessage(msg.chat.id, '*Main Menu:*', true, true,msg.message_id, true,make_menu())
 db:hset('bot:waiting',msg.from.id,'main')
 elseif msg.text == '/init' and msg.from.id == bot_sudo then
@@ -81,12 +81,12 @@ else
 local setup = db:hget('bot:waiting',msg.from.id)
 if setup == 'main' then
 if msg.text == 'QR Code Reader' then
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rows ={kmakerow(rw1_texts)}
 api.sendMessage(msg.chat.id, 'You can *Take a Photo of QR Code* or *Select From Gallery* and send to me...', true, true,msg.message_id, true,kmake(rows))
 db:hset('bot:waiting',msg.from.id,'reader')
 elseif msg.text == 'QR Code Maker' then
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rw2_texts = {'Telegram Contact QR Code'}
 local rw3_texts = {'Telegram Sticker'}
 local rw4_texts = {'JPG Image','PNG Image'}
@@ -95,20 +95,20 @@ api.sendMessage(msg.chat.id, 'Select *Image Type:*', true, true,msg.message_id, 
 db:hset('bot:waiting',msg.from.id,'qrmain')
 
 elseif msg.text == 'BarCode Maker' then
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rw2_texts = {'Code 2of5 (Numic)','Code 128C (Numic)'}
 local rw3_texts = {'Code 128B','Code 128A','Code 39'}
 local rows ={kmakerow(rw1_texts),kmakerow(rw2_texts),kmakerow(rw3_texts)}
 api.sendMessage(msg.chat.id, 'Select *Barcode Algorithm:*', true, true,msg.message_id, true,kmake(rows))
 db:hset('bot:waiting',msg.from.id,'brmain')
 elseif msg.text == 'Encode Hash' then
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rw2_texts = {'Base 64','UmbH UmbH (Umbrella Hash)'}
 local rows ={kmakerow(rw1_texts),kmakerow(rw2_texts)}
 api.sendMessage(msg.chat.id, 'Select *Hash Algorithm:*', true, true,msg.message_id, true,kmake(rows))
 db:hset('bot:waiting',msg.from.id,'encode')
 elseif msg.text == 'Decode Hash' then
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rw2_texts = {'Base 64','UmbH UmbH (Umbrella Hash)'}
 local rows ={kmakerow(rw1_texts),kmakerow(rw2_texts)}
 api.sendMessage(msg.chat.id, 'Select *Hash Algorithm:*', true, true,msg.message_id, true,kmake(rows))
@@ -209,7 +209,7 @@ else
 api.sendMessage(msg.chat.id, 'Input is *False*', true, true,msg.message_id, true)
 end
 elseif setup == 'encode' then
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rows ={kmakerow(rw1_texts)}
 api.sendMessage(msg.chat.id, 'Send *Text:*', true, true,msg.message_id, true,kmake(rows))
 if msg.text == 'Base 64' then
@@ -229,7 +229,7 @@ api.sendMessage(msg.chat.id, '*Main Menu:*', true, true,nil, true,make_menu())
 db:hset('bot:waiting',msg.from.id,'main')
 
 elseif setup == 'decode' then
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rows ={kmakerow(rw1_texts)}
 api.sendMessage(msg.chat.id, 'Send *Text:*', true, true,msg.message_id, true,kmake(rows))
 if msg.text == 'Base 64' then
@@ -272,7 +272,7 @@ if msg.text == v then
 local mytable = json:decode(db:hget('bot:bcreate',msg.from.id))
 mytable.size=stable[i]
 db:hset('bot:bcreate',msg.from.id,json:encode(mytable))
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rw2_texts = {'True','False'}
 local rows ={kmakerow(rw1_texts),kmakerow(rw2_texts)}
 api.sendMessage(msg.chat.id, 'Select *Image Border:*', true, true,msg.message_id, true,kmake(rows))
@@ -294,7 +294,7 @@ local mytable = json:decode(db:hget('bot:bcreate',msg.from.id))
 mytable.boarder= '0'
 db:hset('bot:bcreate',msg.from.id,json:encode(mytable))
 end
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rows ={kmakerow(rw1_texts)}
 local cbase = json:decode(db:hget('bot:bcreate',msg.from.id)).cbase
 if cbase == 'i2of5' or  cbase == 'c128c' then
@@ -338,7 +338,7 @@ local suc = 0
 for i,v in pairs(aln) do
 if msg.text == v then
 db:hset('bot:bcreate',msg.from.id,json:encode({cbase=al[i]}))
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rw2_texts = {'Small','Medium'}
 local rw3_texts = {'Large','Extra'}
 local rows ={kmakerow(rw1_texts),kmakerow(rw2_texts),kmakerow(rw3_texts)}
@@ -353,20 +353,20 @@ end
 elseif setup == 'qrmain' then
 if msg.text == 'Telegram Contact QR Code' then
 if msg.from.username then
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rw2_texts = {'@'..msg.from.username}
 local rw3_texts = {'Other'}
 local rows ={kmakerow(rw1_texts),kmakerow(rw2_texts),kmakerow(rw3_texts)}
 api.sendMessage(msg.chat.id, 'Select a Key:', true, true,msg.message_id, true,kmake(rows))
 db:hset('bot:waiting',msg.from.id,'qrcontact1')
 else
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rows ={kmakerow(rw1_texts)}
 api.sendMessage(msg.chat.id, 'Send target *Username*\n`example: @UmbrellaCopy`', true, true,msg.message_id, true,kmake(rows))
 db:hset('bot:waiting',msg.from.id,'qrcontact2')
 end
 elseif msg.text == 'Telegram Sticker' then
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rw2_texts = {'0','1'}
 local rw3_texts = {'2','3'}
 local rw4_texts = {'4','5'}
@@ -375,7 +375,7 @@ api.sendMessage(msg.chat.id, 'Select *Image Border:*', true, true,msg.message_id
 db:hset('bot:waiting',msg.from.id,'sticker1')
 
 elseif msg.text == 'JPG Image' or msg.text == 'PNG Image' then
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rw2_texts = {'Small','Medium'}
 local rw3_texts = {'Large','Extra'}
 local rows ={kmakerow(rw1_texts),kmakerow(rw2_texts),kmakerow(rw3_texts)}
@@ -390,7 +390,7 @@ api.sendPhoto(msg.chat.id,api.downloadFile('http://api.qrserver.com/v1/create-qr
 api.sendMessage(msg.chat.id, '*Main Menu:*', true, true,nil, true,make_menu())
 db:hset('bot:waiting',msg.from.id,'main')
 elseif msg.text == 'Other' then
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rows ={kmakerow(rw1_texts)}
 api.sendMessage(msg.chat.id, 'Send target *Username*\n`example: @UmbrellaCopy`', true, true,msg.message_id, true,kmake(rows))
 db:hset('bot:waiting',msg.from.id,'qrcontact2')
@@ -410,7 +410,7 @@ local suc = 0
 for i=0,5 do
 if msg.text == tostring(i) then
 db:hset('bot:screate',msg.from.id,json:encode({boarder=i}))
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rw2_texts = {'White','Gray'}
 local rw3_texts = {'Green','Blue'}
 local rw4_texts = {'Yellow','Red'}
@@ -432,7 +432,7 @@ if msg.text == v then
 local mytable = json:decode(db:hget('bot:screate',msg.from.id))
 mytable.bgcolor=htable[i]
 db:hset('bot:screate',msg.from.id,json:encode(mytable))
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rw2_texts = {'Black','Gray'}
 local rw3_texts = {'Green','Blue'}
 local rw4_texts = {'Yellow','Red'}
@@ -447,7 +447,7 @@ if msg.text and (msg.text:match('^#([A-Fa-f0-9][A-Fa-f0-9][A-Fa-f0-9][A-Fa-f0-9]
 local mytable = json:decode(db:hget('bot:screate',msg.from.id))
 mytable.bgcolor=msg.text:gsub('^#','')
 db:hset('bot:screate',msg.from.id,json:encode(mytable))
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rw2_texts = {'Black','Gray'}
 local rw3_texts = {'Green','Blue'}
 local rw4_texts = {'Yellow','Red'}
@@ -467,7 +467,7 @@ if msg.text == v then
 local mytable = json:decode(db:hget('bot:screate',msg.from.id))
 mytable.color=htable[i]
 db:hset('bot:screate',msg.from.id,json:encode(mytable))
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rows ={kmakerow(rw1_texts)}
 api.sendMessage(msg.chat.id, 'Send you\'r *Text, URL & more...*', true, true,msg.message_id, true,kmake(rows))
 db:hset('bot:waiting',msg.from.id,'sticker4')
@@ -479,7 +479,7 @@ if msg.text and (msg.text:match('^#([A-Fa-f0-9][A-Fa-f0-9][A-Fa-f0-9][A-Fa-f0-9]
 local mytable = json:decode(db:hget('bot:screate',msg.from.id))
 mytable.color=msg.text:gsub('^#','')
 db:hset('bot:screate',msg.from.id,json:encode(mytable))
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rows ={kmakerow(rw1_texts)}
 api.sendMessage(msg.chat.id, 'Send you\'r *Text, URL & more...*', true, true,msg.message_id, true,kmake(rows))
 db:hset('bot:waiting',msg.from.id,'sticker4')
@@ -499,7 +499,7 @@ local suc = 0
 for i,v in pairs(sntable) do
 if msg.text == v then
 db:hset('bot:screate',msg.from.id,json:encode({size=stable[i]}))
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rw2_texts = {'0','1'}
 local rw3_texts = {'2','3'}
 local rw4_texts = {'4','5'}
@@ -519,7 +519,7 @@ if msg.text == tostring(i) then
 local mytable = json:decode(db:hget('bot:screate',msg.from.id))
 mytable.boarder=i
 db:hset('bot:screate',msg.from.id,json:encode(mytable))
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rw2_texts = {'White','Gray'}
 local rw3_texts = {'Green','Blue'}
 local rw4_texts = {'Yellow','Red'}
@@ -541,7 +541,7 @@ if msg.text == v then
 local mytable = json:decode(db:hget('bot:screate',msg.from.id))
 mytable.bgcolor=htable[i]
 db:hset('bot:screate',msg.from.id,json:encode(mytable))
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rw2_texts = {'Black','Gray'}
 local rw3_texts = {'Green','Blue'}
 local rw4_texts = {'Yellow','Red'}
@@ -556,7 +556,7 @@ if msg.text and (msg.text:match('^#([A-Fa-f0-9][A-Fa-f0-9][A-Fa-f0-9][A-Fa-f0-9]
 local mytable = json:decode(db:hget('bot:screate',msg.from.id))
 mytable.bgcolor=msg.text:gsub('^#','')
 db:hset('bot:screate',msg.from.id,json:encode(mytable))
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rw2_texts = {'Black','Gray'}
 local rw3_texts = {'Green','Blue'}
 local rw4_texts = {'Yellow','Red'}
@@ -577,7 +577,7 @@ if msg.text == v then
 local mytable = json:decode(db:hget('bot:screate',msg.from.id))
 mytable.color=htable[i]
 db:hset('bot:screate',msg.from.id,json:encode(mytable))
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rows ={kmakerow(rw1_texts)}
 api.sendMessage(msg.chat.id, 'Send you\'r *Text, URL & more...*', true, true,msg.message_id, true,kmake(rows))
 db:hset('bot:waiting',msg.from.id,'image5')
@@ -589,7 +589,7 @@ if msg.text and (msg.text:match('^#([A-Fa-f0-9][A-Fa-f0-9][A-Fa-f0-9][A-Fa-f0-9]
 local mytable = json:decode(db:hget('bot:screate',msg.from.id))
 mytable.color=msg.text:gsub('^#','')
 db:hset('bot:screate',msg.from.id,json:encode(mytable))
-local rw1_texts = {'🔲🔳\n🔳🔲'}
+local rw1_texts = {'🔙'}
 local rows ={kmakerow(rw1_texts)}
 api.sendMessage(msg.chat.id, 'Send you\'r *Text, URL & more...*', true, true,msg.message_id, true,kmake(rows))
 db:hset('bot:waiting',msg.from.id,'image5')
