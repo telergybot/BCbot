@@ -160,26 +160,20 @@ you have 5 algorithm for make Barcode:
   
  
 *Encode Hash:*
-you have 2 algorithm for make Hash Code:
+you have 1 algorithm for make Hash Code:
  
      _Base 64:_
      `you can send utf-8 texts for encode hash to algorithm base 64`
-  
-     _Umbrella:_
-     `you can send utf-8 texts for encode hash to algorithm umbrella`
  
  
 *Decode Hash:*
-you have 2 algorithm for Decode Hash:
+you have 1 algorithm for Decode Hash:
  
      _Base 64:_
-     `you can send base 64 hash code for decode to utf-8 text`
-  
-     _Umbrella:_
-     `you can send umbrella hash code for decode to utf-8 text`]]
+     `you can send base 64 hash code for decode to utf-8 text`]]
 api.sendReply(msg, help, true)
 elseif msg.text == 'About' then
-local pms = [[*BarCodeCopy Robot* v1.0
+local pms = [[*BarCodeCreator bot* v2.1
 
    _- Read QR Code_
    _- Make QR Code_
@@ -188,20 +182,14 @@ local pms = [[*BarCodeCopy Robot* v1.0
    _- Decode Hash Algorithms_
    _- & More..._
 
-*Created by *[UmbrellaCopy Team](https://telegram.me/umbrellacopy)]]
+*Created by *[Amir Reza Ebrahimi](https://telegram.me/amrrezaebrahimi)]]
 local keyboard = {}
     keyboard.inline_keyboard = {
 {
-{text = "Admin" , url = 'https://telegram.me/kingprogram'}
+{text = "🎗Admin🎗" , url = 'https://telegram.me/amrrezaebrahimi'}
 },
 {
-{text = "RoBoT" , url = 'https://telegram.me/uc_bcbot'}
-},
-{
-{text = "Channel" , url = 'https://telegram.me/UmbrellaCopy'}
-},
-{
-{text = "Source" , url = 'https://github.com/UmbrellaCopy/bcbot'}
+{text = "👾Bot👾" , url = 'https://telegram.me/barcodecreatorbot'}
 }
 }
 api.sendMessage(msg.chat.id, pms, true, true,msg.message_id, true,keyboard)
