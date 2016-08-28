@@ -117,7 +117,7 @@ elseif msg.text == 'Help' then
 local help = [[_BarCodeCopy Robot_ *(Inline)*
  
 *Inline Mode*
-     `enter this robot username (@uc_BCbot) in the Input Text Box and press Space button and wait for show Inline Keyboard, if you have Username, in Inline Keyboard show a button for make QR Code for you'r username. You can enter text after this robot username for make QR Core of input text.`
+     `enter this robot username (@BarCodeCreatorBot) in the Input Text Box and press Space button and wait for show Inline Keyboard, if you have Username, in Inline Keyboard show a button for make QR Code for you'r username. You can enter text after this robot username for make QR Core of input text.`
  
  
 *QR Code Reader*
@@ -220,11 +220,11 @@ else
 api.sendMessage(msg.chat.id, 'Input is *False*', true, true,msg.message_id, true)
 end
 elseif setup == 'encodeb' then
-api.sendReply(msg,bencode(msg.text)..'\n\n@uc_bcbot')
+api.sendReply(msg,bencode(msg.text)..'\n\n@BarCodeCreatorBot')
 api.sendMessage(msg.chat.id, '*Main Menu:*', true, true,nil, true,make_menu())
 db:hset('bot:waiting',msg.from.id,'main')
 elseif setup == 'encodeu' then
-api.sendReply(msg,bencode(bencode(msg.text))..'\n\n@uc_bcbot')
+api.sendReply(msg,bencode(bencode(msg.text))..'\n\n@BarCodeCreatorBot')
 api.sendMessage(msg.chat.id, '*Main Menu:*', true, true,nil, true,make_menu())
 db:hset('bot:waiting',msg.from.id,'main')
 
@@ -240,11 +240,11 @@ else
 api.sendMessage(msg.chat.id, 'Input is *False*', true, true,msg.message_id, true)
 end
 elseif setup == 'decodeb' then
-api.sendReply(msg,bdecode(msg.text)..'\n\n@uc_bcbot')
+api.sendReply(msg,bdecode(msg.text)..'\n\n@BarCodeCreatorBot')
 api.sendMessage(msg.chat.id, '*Main Menu:*', true, true,nil, true,make_menu())
 db:hset('bot:waiting',msg.from.id,'main')
 elseif setup == 'decodeu' then
-api.sendReply(msg,bdecode(bdecode(msg.text))..'\n\n@uc_bcbot')
+api.sendReply(msg,bdecode(bdecode(msg.text))..'\n\n@BarCodeCreatorBot')
 api.sendMessage(msg.chat.id, '*Main Menu:*', true, true,nil, true,make_menu())
 db:hset('bot:waiting',msg.from.id,'main')
 
@@ -254,7 +254,7 @@ elseif setup == 'reader' then
 if msg.photo then
 local dat = json:decode(HTTP.request('http://api.qrserver.com/v1/read-qr-code/?fileurl='..URL.escape('https://api.telegram.org/file/bot'..bot_api_key..'/'..api.getFile(msg.photo[1].file_id).result.file_path)))[1]
 if dat.symbol[1].data then
-api.sendReply(msg, 'QR Code Data:\n\n______________________________\n'..dat.symbol[1].data..'\n\n@uc_bcbot')
+api.sendReply(msg, 'QR Code Data:\n\n______________________________\n'..dat.symbol[1].data..'\n\@BarCodeCreatorBot')
 api.sendMessage(msg.chat.id, '*Main Menu:*', true, true,nil, true,make_menu())
 db:hset('bot:waiting',msg.from.id,'main')
 else
@@ -314,7 +314,7 @@ if msg.text and msg.text:match('^%d+$') then
 local data = json:decode(db:hget('bot:bcreate',msg.from.id))
 local file = HTTP.request('http://www.barcodes4.me/barcode/'..data.cbase..'/'..msg.text..'.png?'..data.size..'&IsTextDrawn=1&IsBorderDrawn='..data.boarder)
 io.open('./images/bc.png','w'):write(file):close()
-api.sendPhoto(msg.chat.id,'./images/bc.png','@uc_bcbot',msg.message_id)
+api.sendPhoto(msg.chat.id,'./images/bc.png','@BarCodeCreatorBot',msg.message_id)
 api.sendMessage(msg.chat.id, '*Main Menu:*', true, true,nil, true,make_menu())
 db:hset('bot:waiting',msg.from.id,'main')
 else
@@ -324,7 +324,7 @@ elseif msg.text then
 local data = json:decode(db:hget('bot:bcreate',msg.from.id))
 local file = HTTP.request('http://www.barcodes4.me/barcode/'..data.cbase..'/'..msg.text..'.png?'..data.size..'&IsTextDrawn=1&IsBorderDrawn='..data.boarder)
 io.open('./images/bc.png','w'):write(file):close()
-api.sendPhoto(msg.chat.id,'./images/bc.png','@uc_bcbot',msg.message_id)
+api.sendPhoto(msg.chat.id,'./images/bc.png','@BarCodeCreatorBot',msg.message_id)
 api.sendMessage(msg.chat.id, '*Main Menu:*', true, true,nil, true,make_menu())
 db:hset('bot:waiting',msg.from.id,'main')
 else
@@ -386,7 +386,7 @@ api.sendMessage(msg.chat.id, 'Input is *False*', true, true,msg.message_id, true
 end
 elseif setup == 'qrcontact1' then
 if msg.text == '@'..msg.from.username and msg.from.username then
-api.sendPhoto(msg.chat.id,api.downloadFile('http://api.qrserver.com/v1/create-qr-code/?data=https://telegram.me/'..msg.from.username..'&color=0FA0EF&size=512x512','./images/username.png'),'@uc_bcbot',msg.message_id)
+api.sendPhoto(msg.chat.id,api.downloadFile('http://api.qrserver.com/v1/create-qr-code/?data=https://telegram.me/'..msg.from.username..'&color=0FA0EF&size=512x512','./images/username.png'),'@BarCodeCreatorBot',msg.message_id)
 api.sendMessage(msg.chat.id, '*Main Menu:*', true, true,nil, true,make_menu())
 db:hset('bot:waiting',msg.from.id,'main')
 elseif msg.text == 'Other' then
@@ -399,7 +399,7 @@ api.sendMessage(msg.chat.id, 'Input is *False*', true, true,msg.message_id, true
 end
 elseif setup == 'qrcontact2' then
 if msg.text and msg.text:match('^@[a-zA-Z0-9_]*$') then
-api.sendPhoto(msg.chat.id,api.downloadFile('http://api.qrserver.com/v1/create-qr-code/?data=https://telegram.me/'..msg.text:gsub('^@','')..'&color=0FA0EF&size=512x512','./images/username.png'),'@uc_bcbot',msg.message_id)
+api.sendPhoto(msg.chat.id,api.downloadFile('http://api.qrserver.com/v1/create-qr-code/?data=https://telegram.me/'..msg.text:gsub('^@','')..'&color=0FA0EF&size=512x512','./images/username.png'),'@BarCodeCreatorBot',msg.message_id)
 api.sendMessage(msg.chat.id, '*Main Menu:*', true, true,nil, true,make_menu())
 db:hset('bot:waiting',msg.from.id,'main')
 else
@@ -602,7 +602,7 @@ end
 
 elseif setup == 'image5' then
 local sdata = json:decode(db:hget('bot:screate',msg.from.id))
-api.sendPhoto(msg.chat.id,api.downloadFile('http://api.qrserver.com/v1/create-qr-code/?margin='..(tonumber(sdata.boarder) * 10)..'&color='..sdata.color..'&bgcolor='..sdata.bgcolor..'&size='..sdata.size..'&data='..msg.text,'./images/image.png'),'@uc_bcbot',msg.message_id)
+api.sendPhoto(msg.chat.id,api.downloadFile('http://api.qrserver.com/v1/create-qr-code/?margin='..(tonumber(sdata.boarder) * 10)..'&color='..sdata.color..'&bgcolor='..sdata.bgcolor..'&size='..sdata.size..'&data='..msg.text,'./images/image.png'),'@BarCodeCreatorBot',msg.message_id)
 api.sendMessage(msg.chat.id, '*Main Menu:*', true, true,nil, true,make_menu())
 db:hset('bot:waiting',msg.from.id,'main')
 
@@ -618,7 +618,7 @@ qresult[1].id = '1'
  qresult[1].type = 'photo'
  qresult[1].photo_url = URL.escape('http://api.qrserver.com/v1/create-qr-code/?data=https://telegram.me/'..inline.from.username..'&color=0FA0EF&margin=15&size=512x512')
  qresult[1].thumb_url = URL.escape('http://api.qrserver.com/v1/create-qr-code/?data=https://telegram.me/'..inline.from.username..'&color=0FA0EF&margin=15&size=512x512')
- qresult[1].caption = URL.escape('QR Code: @'..inline.from.username..'  ('..inline.from.id..')\n\n@uc_bcbot')
+ qresult[1].caption = URL.escape('QR Code: @'..inline.from.username..'  ('..inline.from.id..')\n\n@BarCodeCreatorBot')
  api.sendInline(inline.id, qresult,0)
 else
 local qresult = {{}}
@@ -626,7 +626,7 @@ qresult[1].id = '1'
 qresult[1].type = 'article'
 qresult[1].description = 'enter text for make QR code'
 qresult[1].title = 'Make QR Code'
-qresult[1].message_text = 'You haven\'t *Username* for make telegram QR!\n`you can enter text after this bot username (@uc_bcbot) and make QR code of you\'r text`'
+qresult[1].message_text = 'You haven\'t *Username* for make telegram QR!\n`you can enter text after this bot username (@BarCodeCreatorBot) and make QR code of you\'r text`'
 qresult[1].parse_mode = 'Markdown'
 api.sendInline(inline.id, qresult,0)
 end
@@ -636,7 +636,7 @@ qresult[1].id = '1'
  qresult[1].type = 'photo'
  qresult[1].photo_url = URL.escape('http://api.qrserver.com/v1/create-qr-code/?data='..inline.query..'&margin=15&size=512x512')
  qresult[1].thumb_url = URL.escape('http://api.qrserver.com/v1/create-qr-code/?data='..inline.query..'&margin=15&size=512x512')
- qresult[1].caption = URL.escape('@uc_bcbot')
+ qresult[1].caption = URL.escape('@BarCodeCreatorBot')
  api.sendInline(inline.id, qresult,0)
 end
 end
