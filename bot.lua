@@ -103,13 +103,13 @@ api.sendMessage(msg.chat.id, 'Select *Barcode Algorithm:*', true, true,msg.messa
 db:hset('bot:waiting',msg.from.id,'brmain')
 elseif msg.text == 'Encode Hash' then
 local rw1_texts = {'🔙'}
-local rw2_texts = {'Base 64','UmbH UmbH (Umbrella Hash)'}
+local rw2_texts = {'Base 64'}
 local rows ={kmakerow(rw1_texts),kmakerow(rw2_texts)}
 api.sendMessage(msg.chat.id, 'Select *Hash Algorithm:*', true, true,msg.message_id, true,kmake(rows))
 db:hset('bot:waiting',msg.from.id,'encode')
 elseif msg.text == 'Decode Hash' then
 local rw1_texts = {'🔙'}
-local rw2_texts = {'Base 64','UmbH UmbH (Umbrella Hash)'}
+local rw2_texts = {'Base 64'}
 local rows ={kmakerow(rw1_texts),kmakerow(rw2_texts)}
 api.sendMessage(msg.chat.id, 'Select *Hash Algorithm:*', true, true,msg.message_id, true,kmake(rows))
 db:hset('bot:waiting',msg.from.id,'decode')
