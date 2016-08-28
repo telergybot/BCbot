@@ -350,7 +350,7 @@ db:hset('bot:waiting',msg.from.id,'qrcontact1')
 else
 local rw1_texts = {'🔙'}
 local rows ={kmakerow(rw1_texts)}
-api.sendMessage(msg.chat.id, 'Send target *Username*\n`example: @UmbrellaCopy`', true, true,msg.message_id, true,kmake(rows))
+api.sendMessage(msg.chat.id, 'Send target *Username*\n`example: @username`', true, true,msg.message_id, true,kmake(rows))
 db:hset('bot:waiting',msg.from.id,'qrcontact2')
 end
 elseif msg.text == 'Telegram Sticker' then
@@ -380,7 +380,7 @@ db:hset('bot:waiting',msg.from.id,'main')
 elseif msg.text == 'Other' then
 local rw1_texts = {'🔙'}
 local rows ={kmakerow(rw1_texts)}
-api.sendMessage(msg.chat.id, 'Send target *Username*\n`example: @UmbrellaCopy`', true, true,msg.message_id, true,kmake(rows))
+api.sendMessage(msg.chat.id, 'Send target *Username*\n`example: @username`', true, true,msg.message_id, true,kmake(rows))
 db:hset('bot:waiting',msg.from.id,'qrcontact2')
 else
 api.sendMessage(msg.chat.id, 'Input is *False*', true, true,msg.message_id, true)
