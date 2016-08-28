@@ -254,7 +254,7 @@ elseif setup == 'reader' then
 if msg.photo then
 local dat = json:decode(HTTP.request('http://api.qrserver.com/v1/read-qr-code/?fileurl='..URL.escape('https://api.telegram.org/file/bot'..bot_api_key..'/'..api.getFile(msg.photo[1].file_id).result.file_path)))[1]
 if dat.symbol[1].data then
-api.sendReply(msg, 'QR Code Data:\n\n______________________________\n'..dat.symbol[1].data..'\n\@BarCodeCreatorBot')
+api.sendReply(msg, 'QR Code Data:\n\n______________________________\n'..dat.symbol[1].data..'\n\n@BarCodeCreatorBot')
 api.sendMessage(msg.chat.id, '*Main Menu:*', true, true,nil, true,make_menu())
 db:hset('bot:waiting',msg.from.id,'main')
 else
